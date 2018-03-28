@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import de.android.ayrathairullin.montyhall.managers.GameManager;
+import de.android.ayrathairullin.montyhall.managers.InputManager;
 
 public class Monty extends ApplicationAdapter {
 	private OrthographicCamera camera;
@@ -38,6 +39,7 @@ public class Monty extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.setProjectionMatrix(camera.combined);
+		InputManager.handleInput(camera);
 
 		batch.begin();
 		GameManager.renderGame(batch);
