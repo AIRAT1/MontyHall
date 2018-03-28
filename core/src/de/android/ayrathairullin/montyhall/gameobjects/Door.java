@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Door {
     public Sprite openSprite, closeSprite;
-    public boolean isOpen = false;
+    public boolean isOpen = false, isGoat = false;
     public Vector2 position = new Vector2();
     public float height, width;
 

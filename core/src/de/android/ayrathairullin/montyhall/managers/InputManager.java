@@ -16,7 +16,7 @@ public class InputManager {
             for (int i = 0; i < GameManager.doors.size; i++) {
                 Door door = GameManager.doors.get(i);
                 if (!door.isOpen) {
-                    if (handleDoor(door, touchX, touchY)) {
+                    if (handleDoor(door, touchX, touchY, i)) {
                         break;
                     }
                 }
@@ -24,10 +24,22 @@ public class InputManager {
         }
     }
 
-    private static boolean handleDoor(Door door, float touchX, float touchY) {
+    private static boolean handleDoor(Door door, float touchX, float touchY, int doorIndex) {
         if (touchX >= door.position.x && touchX <= door.position.x + door.width
                 && touchY >= door.position.y && touchY <= door.position.y + door.height) {
-            door.isOpen = true;
+            switch (GameManager.level) {
+                case START:
+                    GameManager.doors.get(GameManager.getGoatindices(doorIndex).random()).isOpen = true;
+                    GameManager.level = GameManager.Level.CONFIRM;
+                    break;
+                case CONFIRM:
+                    door.isOpen = true;
+                    GameManager.level = GameManager.Level.END;
+                    if (!door.isGoat) {
+                        GameManager.hasWon = true;
+                    }
+                    break;
+            }
             return true;
         }
         return false;
